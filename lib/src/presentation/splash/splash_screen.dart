@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget implements AutoRouteWrapper {
 
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(const Duration(milliseconds: 1500), () {
           switch (state.authState) {
             case null:
             case AuthState.unauthenticated:
@@ -41,14 +41,21 @@ class SplashScreen extends StatelessWidget implements AutoRouteWrapper {
         });
       },
       child: Scaffold(
-        body: Column(
-          children: [
-            SvgPicture.asset(
-              assetName,
-              semanticsLabel: 'Magnus Digital Logo',
-              fit: BoxFit.fill,
-            ),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SvgPicture.asset(
+                assetName,
+                semanticsLabel: 'Magnus Digital Logo',
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+              const CircularProgressIndicator(),
+            ],
+          ),
         ),
       ),
     );

@@ -60,6 +60,7 @@ class _RootPageState extends State<RootPage> {
       appBar: AppBar(
         title: const Text('Magnus News'),
         elevation: 5,
+        automaticallyImplyLeading: false,
         actions: [
           if (_currentIndex == 1)
             InkWell(
