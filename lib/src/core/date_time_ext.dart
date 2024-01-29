@@ -5,7 +5,7 @@ class InvalidDateFormatException implements Exception {}
 
 extension DateTimeExt on String {
   String toDateFormat({
-    String dateFormat = 'y-MM-dd HH:mm:ss',
+    String dateFormat = 'dd MMM, HH:mm',
     bool toUtc = false,
     bool toLocal = false,
     String? locale = 'id',

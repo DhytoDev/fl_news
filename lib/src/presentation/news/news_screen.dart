@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fl_news/src/core/date_time_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../domain/model/article.dart';
 import '../route/router.dart';
@@ -21,8 +23,7 @@ class _NewsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewsCubit, UiState<List<Article>>>(
-      listener: (context, state) {},
+    return BlocBuilder<NewsCubit, UiState<List<Article>>>(
       builder: (context, state) {
         Widget? body = const SizedBox.shrink();
 
@@ -93,6 +94,7 @@ class _NewsItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (article.author != null) Text(article.author!),
           Row(
             children: [
               Expanded(
@@ -105,36 +107,42 @@ class _NewsItem extends StatelessWidget {
               Image.network(
                 article.urlToImage ?? '',
                 fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width / 4,
-                height: 50,
+                width: MediaQuery.of(context).size.width / 3,
                 errorBuilder: (context, e, s) {
-                  return const Placeholder(
-                    fallbackWidth: 100,
-                    fallbackHeight: 50,
+                  return SvgPicture.asset(
+                    'images/magnus.svg',
+                    semanticsLabel: 'Magnus Digital Logo',
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width / 4,
                   );
                 },
                 loadingBuilder: (context, child, chunk) {
                   bool loaded = chunk?.cumulativeBytesLoaded ==
                       (chunk?.expectedTotalBytes ?? 0);
 
-                  // debugPrint(loaded.toString());
                   return child;
                 },
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Chip(
-            visualDensity: VisualDensity.compact,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            side: BorderSide(color: Theme.of(context).primaryColor),
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            label: Text(
-              article.source ?? '',
-              style: textTheme.bodyMedium,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Chip(
+                visualDensity: VisualDensity.compact,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                side: BorderSide(color: Theme.of(context).primaryColor),
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                label: Text(
+                  article.source ?? '',
+                  style: textTheme.bodyMedium,
+                ),
+              ),
+              Text(article.publishedAt!.toDateFormat(toLocal: true))
+            ],
           )
         ],
       ),
