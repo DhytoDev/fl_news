@@ -1,7 +1,7 @@
 import 'package:fl_news/src/presentation/route/router.dart';
 import 'package:flutter/material.dart';
 
-import '../di/injection.dart';
+import 'src/di/injection.dart';
 
 void main() async {
   await configureInjection();
