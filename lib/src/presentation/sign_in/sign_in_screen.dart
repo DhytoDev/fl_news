@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:fl_news/src/di/injection.dart';
 import 'package:fl_news/src/presentation/route/router.dart';

@@ -8,13 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../di/injection.dart';
-import '../domain/usecases/get_top_headlines.dart';
 import 'news/news_screen.dart';
 import 'splash/authentication_bloc.dart';
 
 @RoutePage()
 class RootPage extends StatefulWidget implements AutoRouteWrapper {
-  const RootPage({Key? key}) : super(key: key);
+  const RootPage({super.key});
 
   @override
   State<RootPage> createState() => _RootPageState();
